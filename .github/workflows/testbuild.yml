@@ -1,0 +1,29 @@
+name: Build crkbd
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/qmk_cli
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Compile klein
+      run: |
+        git config --global --add safe.directory $(pwd)
+        make git-submodule
+        make snsten/crbkd:vial
+    - name: Upload the generated hex file
+      uses: actions/upload-artifact@v2
+      with:
+        name: u2f
+        path: crkbd_vial.uf2
+    - name: Download the hex file
+      uses: actions/download-artifact@v2
+      with:
+        name: uf2
