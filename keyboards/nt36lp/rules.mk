@@ -1,0 +1,3 @@
+VAI_ENABLE = yes
+VAIL_ENABLE = yes
+LTO_ENABLE = yes
